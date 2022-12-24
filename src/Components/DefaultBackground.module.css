@@ -1,0 +1,23 @@
+.background {
+  background: linear-gradient(45deg, #b16cff, #4460ff, #b16cff, #4460ff);
+  background-repeat: no-repeat;
+  background-size: 400% !important;
+  animation: gradient-scan 30s linear infinite;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  transition: opacity ease 0.5s;
+  z-index: -1;
+  opacity: 1;
+  margin: 0;
+  font-family: "Josefin Sans", sans-serif;
+  font-size: clamp(1em, 2vw, 2em);
+  color: var(--text-normal);
+  scroll-behavior: smooth;
+  user-select: none;
+}
