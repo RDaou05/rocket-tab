@@ -2,11 +2,17 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import CenterScreen from "../CenterScreen/CenterScreen";
 import classes from "./Background.module.css";
 import defaultClasses from "./DefaultBackground.module.css";
-import Clock from "../Clock/Clock";
+import Clock from "../CenterScreen/Clock";
+import Navigation from "../Navigation/Navigation";
+import BackgroundPopup from "../BackgroundPopup/BackgroundPopup";
+import AddShortcuts from "../AddShortcuts/AddShortcuts";
 
 const Background = () => {
   const [bgLocalState, setBgLocalState] = useState("");
   const [classState, setClassState] = useState(defaultClasses);
+  const [backgroundPopupState, setBackgroundPopupState] = useState(false);
+  const [addShortcutsPopup, setAddShortcutsPopup] = useState(false);
+  const [openShortcutsPop, setOpenShortcutsPop] = useState(false);
   const backgroundRef = useRef(null);
   const width = 1920;
   const height = 1080;
@@ -46,8 +52,38 @@ const Background = () => {
   }, [bgLocalState]);
   return (
     <div className={classState.background} ref={backgroundRef}>
-      <Clock />
-      <CenterScreen />
+      <div className={classes.backgroundPopupContainer}>
+        {!backgroundPopupState && !addShortcutsPopup ? (
+          <CenterScreen />
+        ) : (
+          <>
+            {backgroundPopupState ? (
+              <BackgroundPopup
+                hidePopup={() => {
+                  setBackgroundPopupState(false);
+                }}
+                changeBg={changeBg}
+              />
+            ) : null}
+            {addShortcutsPopup ? (
+              <AddShortcuts
+                hidePopup={() => {
+                  setAddShortcutsPopup(false);
+                }}
+              />
+            ) : null}
+          </>
+        )}
+      </div>
+
+      <Navigation
+        openPopup={() => {
+          setBackgroundPopupState(true);
+        }}
+        openShortcutsPopup={() => {
+          setAddShortcutsPopup(true);
+        }}
+      />
     </div>
   );
 };

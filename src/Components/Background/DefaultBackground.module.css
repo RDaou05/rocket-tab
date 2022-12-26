@@ -21,3 +21,12 @@
   scroll-behavior: smooth;
   user-select: none;
 }
+
+.backgroundPopupContainer {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}

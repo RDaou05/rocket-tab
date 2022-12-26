@@ -1,0 +1,37 @@
+.navBar {
+  background-color: #000;
+  color: red;
+  font-size: 1.2rem;
+  height: 100%;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: absolute;
+  top: 0;
+  transition: width 0.2s ease;
+  width: 4em;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 2%;
+  grid-gap: 1rem;
+}
+
+.navBar:hover {
+  width: 16em;
+}
+
+#backgroundIcon {
+  color: #fff;
+  font-size: 3rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+#linkIcon {
+  color: #fff;
+  cursor: pointer;
+  font-size: 3rem;
+  text-align: center;
+}

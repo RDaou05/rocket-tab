@@ -3,7 +3,7 @@ import Background from "./Components/Background/Background";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={{ overflow: "hidden" }}>
       <Background />
     </div>
   );

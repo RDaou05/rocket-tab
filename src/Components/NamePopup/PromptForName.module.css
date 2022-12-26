@@ -1,0 +1,56 @@
+.namePopup {
+  background-color: #c9c5c5;
+  border-radius: 0.8vh;
+  box-shadow: 0 0 30px 0 #020202;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 5rem;
+  padding: 3em;
+  position: absolute;
+  width: min(40vw);
+  flex-wrap: wrap;
+}
+
+.nameContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.nameHeader {
+  color: #ffffff;
+  font-family: Josefin Sans, sans-serif;
+  font-weight: 100;
+  text-shadow: 0.1rem 0.1rem 1rem #0b0b0b;
+}
+
+.nameInput {
+  border: none;
+  border-bottom: 2px solid white;
+  background: transparent;
+  outline: none;
+  color: #0daf85;
+  font-family: Josefin Sans, sans-serif;
+  font-weight: 100;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 11%;
+}
+
+.nameInput:focus {
+  border-bottom: 2px solid #0daf85;
+  transition: 0.2s;
+  width: 100%;
+}
+
+#closeName {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  width: fit-content;
+  display: flex;
+  align-self: flex-end;
+}

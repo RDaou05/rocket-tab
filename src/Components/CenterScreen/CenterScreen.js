@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
 import classes from "./CenterScreen.module.css";
-import PromptForName from "./PromptForName";
+import Clock from "./Clock";
+import PromptForName from "../NamePopup/PromptForName";
 
 const CenterScreen = () => {
   const [promptForNameState, setPromptForNameState] = useState(false);
   const nameGreet = useRef(null);
+  const searchBoxRef = useRef(null);
   const nameFromLocal = localStorage.getItem("name");
 
   const setNewName = (name) => {
     localStorage.setItem("name", name);
-    nameGreet.current.textContent = "Hello ${name}, what are you looking for?";
   };
   useLayoutEffect(() => {
     if (nameFromLocal == null) {
@@ -19,14 +20,48 @@ const CenterScreen = () => {
         "Hello " + nameFromLocal + ", what are you looking for?";
     }
   }, []);
+  useLayoutEffect(() => {
+    if (!promptForNameState) {
+      nameGreet.current.textContent = `Hello ${localStorage.getItem(
+        "name"
+      )}, what are you looking for?`;
+    }
+  }, [promptForNameState]);
   return (
-    <div>
+    <div className={classes.centerComponents}>
       {promptForNameState ? (
-        <PromptForName setNewName={setNewName} />
+        <PromptForName
+          setNewName={setNewName}
+          close={() => {
+            setPromptForNameState(false);
+          }}
+        />
       ) : (
         <>
-          <h1 ref={nameGreet}>Hello, what are you looking for?</h1>
-          <input type="text" id={classes.searchBox} />
+          <Clock />
+          <h1
+            id={classes.helloText}
+            ref={nameGreet}
+            onClick={() => {
+              setPromptForNameState(true);
+            }}
+          >
+            Hello, what are you looking for?
+          </h1>
+          <input
+            type="text"
+            id={classes.searchBox}
+            ref={searchBoxRef}
+            autocomplete="off"
+            spellcheck="false"
+            autocorrect="off"
+            onKeyDown={(evt) => {
+              if (evt.key == "Enter") {
+                window.location.href =
+                  "http://google.com/search?q=" + searchBoxRef.current.value;
+              }
+            }}
+          />
         </>
       )}
     </div>
