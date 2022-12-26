@@ -64,12 +64,11 @@
   border-style: solid;
   border-width: 1px;
   box-shadow: 0 0 20px #a1adae;
-  height: 75px;
-  position: absolute;
-  width: 300px;
-  font-family: "Josefin Sans", sans-serif;
-  font-size: clamp(1em, 2vw, 2em);
   cursor: pointer;
+  font-family: Josefin Sans, sans-serif;
+  font-size: clamp(1em, 2vw, 2em);
+  position: absolute;
+  padding: 1.5rem;
 }
 
 .deleteButtonContainer {

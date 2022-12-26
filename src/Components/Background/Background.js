@@ -79,9 +79,11 @@ const Background = () => {
       <Navigation
         openPopup={() => {
           setBackgroundPopupState(true);
+          setAddShortcutsPopup(false);
         }}
         openShortcutsPopup={() => {
           setAddShortcutsPopup(true);
+          setBackgroundPopupState(false);
         }}
       />
     </div>
