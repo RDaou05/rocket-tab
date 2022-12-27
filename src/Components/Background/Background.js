@@ -17,8 +17,15 @@ const Background = () => {
   const width = 1920;
   const height = 1080;
   const changeBg = (newBg) => {
-    localStorage.setItem("bg", newBg);
-    setBgLocalState(newBg);
+    if (newBg == null) {
+      // Setting the bg to null means the default background
+      // We can't just set the local storage to null because it will save as 'null' the string, instead of null (not found)
+      localStorage.removeItem("bg");
+      setBgLocalState(newBg);
+    } else {
+      localStorage.setItem("bg", newBg);
+      setBgLocalState(newBg);
+    }
   };
   useEffect(() => {
     setBgLocalState(localStorage.getItem("bg"));

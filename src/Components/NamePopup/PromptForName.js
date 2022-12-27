@@ -13,7 +13,10 @@ const PromptForName = (props) => {
   }, []);
 
   return (
-    <div className={classes.namePopup}>
+    <div
+      className={classes.namePopup}
+      style={{ padding: nameSetState ? "1rem 1rem 3rem 1rem" : "3em" }}
+    >
       {nameSetState ? (
         <button
           id={classes.closeName}

@@ -35,7 +35,9 @@ const Clock = () => {
 
     GetTimeString();
     setInterval(() => {
-      GetTimeString();
+      try {
+        GetTimeString();
+      } catch (err) {}
     }, 1000);
   }, []);
 
