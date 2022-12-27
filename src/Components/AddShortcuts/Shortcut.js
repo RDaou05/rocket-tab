@@ -1,12 +1,13 @@
-import React from "react";
-import clases from "./Shortcut.module.css";
+import React, { useState } from "react";
+import classes from "./Shortcut.module.css";
 const Shortcut = (props) => {
-  const shortcutObj = JSON.parse(props.shortcutStringified);
-  const name = shortcutObj.name;
-  const link = shortcutObj.link;
+  const [shortcutState, setShortcutState] = useState(props.shortcut);
+
   return (
     <div>
-      {props.name} and {props.link}
+      <p>
+        {shortcutState.name} and {shortcutState.link}
+      </p>
     </div>
   );
 };

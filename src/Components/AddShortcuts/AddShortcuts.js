@@ -5,27 +5,28 @@ import Shortcut from "./Shortcut";
 const AddShortcuts = (props) => {
   const [shortcutsListState, setShortcutsListState] = useState([]);
   useLayoutEffect(() => {
-    const localGet = localStorage.getItem("shortcuts");
+    const localGet = JSON.parse(localStorage.getItem("shortcuts"));
     console.log("lcget: ", localGet);
     if (localGet != null && localGet != []) {
       setShortcutsListState(localGet);
     }
-  }, [shortcutsListState]);
+  }, []);
 
   const addShortcut = (name, link) => {
-    const currentLocal = localStorage.getItem("shortcuts");
+    const currentLocal = JSON.parse(localStorage.getItem("shortcuts"));
     const shortLink = "testshortlink.com";
     if (currentLocal != null && currentLocal != []) {
       // If there is already a main array with a shortcut in it, then it will just make a new copy of it with the array + the new shortcut
       let newLocal = currentLocal;
       console.log("newl: ", newLocal);
-      newLocal.push(JSON.stringify({ name: name, link: link }));
-      localStorage.setItem("shortcuts", newLocal);
+      newLocal.push({ name: name, link: link });
+      localStorage.setItem("shortcuts", JSON.stringify(newLocal));
     } else {
       // If there is no current shortcuts added, it will make the main array, and add this shortcut to it
-      localStorage.setItem("shortcuts", [
-        JSON.stringify({ name: name, link: link }),
-      ]);
+      localStorage.setItem(
+        "shortcuts",
+        JSON.stringify([{ name: name, link: link }])
+      );
     }
   };
   return (
@@ -62,7 +63,10 @@ const AddShortcuts = (props) => {
             {console.log(shortcutsListState)}
             {shortcutsListState != []
               ? shortcutsListState.map((shortcut, index) => {
-                  <Shortcut key={index} shortcutStringified={shortcut} />;
+                  {
+                    console.log(shortcut, index);
+                  }
+                  return <Shortcut key={index} shortcut={shortcut} />;
                 })
               : null}
           </div>
