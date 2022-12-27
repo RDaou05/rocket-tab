@@ -24,7 +24,7 @@
 
 .shortcutsHeader {
   color: #fff;
-  margin-top: 0;
+  margin: 0;
   font-family: Josefin Sans, sans-serif;
   font-weight: 100;
   text-shadow: 0.1rem 0.1rem 1rem #0b0b0b;
@@ -37,6 +37,22 @@
   font-size: 2rem;
   width: fit-content;
   display: flex;
-  align-self: flex-end;
   cursor: pointer;
+}
+
+#addShortcutsPlus {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 3rem;
+  width: fit-content;
+  display: flex;
+  cursor: pointer;
+}
+
+.addShortcutsHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }

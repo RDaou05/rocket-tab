@@ -8,7 +8,6 @@ const AddShortcuts = (props) => {
     const localGet = localStorage.getItem("shortcuts");
     console.log("lcget: ", localGet);
     if (localGet != null && localGet != []) {
-    } else {
       setShortcutsListState(localGet);
     }
   }, [shortcutsListState]);
@@ -20,14 +19,12 @@ const AddShortcuts = (props) => {
       // If there is already a main array with a shortcut in it, then it will just make a new copy of it with the array + the new shortcut
       let newLocal = currentLocal;
       console.log("newl: ", newLocal);
-      newLocal.push(
-        JSON.stringify({ name: name, link: link, shortLink: shortLink })
-      );
+      newLocal.push(JSON.stringify({ name: name, link: link }));
       localStorage.setItem("shortcuts", newLocal);
     } else {
       // If there is no current shortcuts added, it will make the main array, and add this shortcut to it
       localStorage.setItem("shortcuts", [
-        JSON.stringify({ name: name, link: link, shortLink: shortLink }),
+        JSON.stringify({ name: name, link: link }),
       ]);
     }
   };
@@ -40,37 +37,34 @@ const AddShortcuts = (props) => {
         className={classes.shortcutsContainer}
         style={{ padding: "1rem 1rem 3rem 1rem" }}
       >
-        <button
-          id={classes.closeShortcuts}
-          onClick={() => {
-            props.hidePopup();
-          }}
-        >
-          &#x2715;
-        </button>
-        <button
-          id={classes.closeShortcuts}
-          onClick={() => {
-            addShortcut("Youtube", "youtube.com");
-          }}
-        >
-          &#x002B;
-        </button>
+        <div className={classes.addShortcutsHeader} style={{ width: "100%" }}>
+          <button
+            id={classes.addShortcutsPlus}
+            onClick={() => {
+              addShortcut("Youtube", "youtube.com");
+            }}
+          >
+            &#x002B;
+          </button>
+          <h1 className={classes.shortcutsHeader}>Add Shortcuts</h1>
+          <button
+            id={classes.closeShortcuts}
+            onClick={() => {
+              props.hidePopup();
+            }}
+          >
+            &#x2715;
+          </button>
+        </div>
 
         <div className={classes.shortcutsContainer}>
-          <h1 className={classes.shortcutsHeader}>Add Shortcuts</h1>
           <div className={classes.linksContainer}>
             {console.log(shortcutsListState)}
-            {/* {shortcutsListState != []
+            {shortcutsListState != []
               ? shortcutsListState.map((shortcut, index) => {
-                  <Shortcut
-                    key={index}
-                    shortLink={shortcut.shortLink}
-                    link={shortcut.link}
-                    name={shortcut.name}
-                  />;
+                  <Shortcut key={index} shortcutStringified={shortcut} />;
                 })
-              : null} */}
+              : null}
           </div>
         </div>
       </div>
