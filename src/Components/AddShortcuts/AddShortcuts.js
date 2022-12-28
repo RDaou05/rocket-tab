@@ -100,12 +100,15 @@ const AddShortcuts = (props) => {
           <div className={classes.linksContainer}>
             {console.log(shortcutsListState)}
             {shortcutsListState != []
-              ? shortcutsListState.map((shortcut, index) => {
-                  {
-                    console.log(shortcut, index);
-                  }
-                  return <Shortcut key={index} shortcut={shortcut} />;
-                })
+              ? shortcutsListState
+                  .slice(0)
+                  .reverse()
+                  .map((shortcut, index) => {
+                    {
+                      console.log(shortcut, index);
+                    }
+                    return <Shortcut key={index} shortcut={shortcut} />;
+                  })
               : null}
           </div>
         </div>

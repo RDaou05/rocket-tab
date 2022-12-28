@@ -41,6 +41,7 @@ const Navigation = (props) => {
             onClick={() => {
               props.openPopup();
             }}
+            style={{ textAlign: "center" }}
           >
             {hoverState ? (
               <a
