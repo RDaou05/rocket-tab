@@ -35,7 +35,7 @@ const AddShortcuts = (props) => {
   return (
     <div
       className={classes.shortcutsPopup}
-      style={{ padding: "1rem 1rem 3rem 1rem" }}
+      style={{ padding: "3rem 1rem 3rem 1rem" }}
     >
       <div
         className={classes.shortcutsContainer}
@@ -96,10 +96,7 @@ const AddShortcuts = (props) => {
             />
           </div>
         ) : null}
-        <div
-          className={classes.shortcutsContainer}
-          style={{ overflow: "scroll" }}
-        >
+        <div className={classes.shortcutsContainer}>
           <div className={classes.linksContainer}>
             {console.log(shortcutsListState)}
             {shortcutsListState != []
