@@ -13,8 +13,8 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding-top: 2%;
   grid-gap: 1rem;
+  padding: 0;
 }
 
 .navBar:hover {
@@ -35,4 +35,63 @@
   cursor: pointer;
   font-size: 2rem;
   text-align: center;
+}
+
+#backgroundText {
+  opacity: 0.5;
+  color: #fff;
+  font-size: 2rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+#linkText {
+  opacity: 0.5;
+  color: #fff;
+  font-size: 2rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+#backgroundNav {
+  color: #fff;
+  cursor: pointer;
+  font-size: 2rem;
+  opacity: 0.5;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+#linkNav {
+  color: #fff;
+  cursor: pointer;
+  font-size: 2rem;
+  opacity: 0.5;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+#rocket {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.navBar:hover #rocket {
+  opacity: 1;
+  transform: rotate(360deg);
+  transition: all ease 0.5s;
+}
+
+.navBar:hover #rocketUI {
+  margin-left: 5%;
+  width: -webkit-fill-available;
+  float: left;
 }
