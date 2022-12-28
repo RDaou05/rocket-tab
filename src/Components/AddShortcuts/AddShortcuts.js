@@ -1,9 +1,12 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import classes from "./AddShortcuts.module.css";
 import Shortcut from "./Shortcut";
 
 const AddShortcuts = (props) => {
   const [shortcutsListState, setShortcutsListState] = useState([]);
+  const [shortcutInputState, setShortcutInputState] = useState(false);
+  const nameInputRef = useRef(null);
+  const linkInputRef = useRef(null);
   useLayoutEffect(() => {
     const localGet = JSON.parse(localStorage.getItem("shortcuts"));
     console.log("lcget: ", localGet);
@@ -42,7 +45,7 @@ const AddShortcuts = (props) => {
           <button
             id={classes.addShortcutsPlus}
             onClick={() => {
-              addShortcut("Youtube", "youtube.com");
+              setShortcutInputState(true);
             }}
           >
             &#x002B;
@@ -57,8 +60,46 @@ const AddShortcuts = (props) => {
             &#x2715;
           </button>
         </div>
-
-        <div className={classes.shortcutsContainer}>
+        {shortcutInputState ? (
+          <div className={classes.inputContainer}>
+            <input
+              type="text"
+              className={classes.addShortcutInput}
+              id={classes.addName}
+              ref={nameInputRef}
+              onKeyDown={(evt) => {
+                // When enter is pressed in either input field, it makes sure that none of the fields are blank, then it will add the shortcut
+                if (evt.key == "Enter") {
+                  const nameVal = nameInputRef.current.value;
+                  const linkVal = linkInputRef.current.value;
+                  if (nameVal.trim() != "" && linkVal.trim() != "") {
+                    addShortcut(nameVal, linkVal);
+                  }
+                }
+              }}
+            />
+            <input
+              type="text"
+              className={classes.addShortcutInput}
+              ref={linkInputRef}
+              id={classes.addLink}
+              onKeyDown={(evt) => {
+                // When enter is pressed in either input field, it makes sure that none of the fields are blank, then it will add the shortcut
+                if (evt.key == "Enter") {
+                  const nameVal = nameInputRef.current.value;
+                  const linkVal = linkInputRef.current.value;
+                  if (nameVal.trim() != "" && linkVal.trim() != "") {
+                    addShortcut(nameVal, linkVal);
+                  }
+                }
+              }}
+            />
+          </div>
+        ) : null}
+        <div
+          className={classes.shortcutsContainer}
+          style={{ overflow: "scroll" }}
+        >
           <div className={classes.linksContainer}>
             {console.log(shortcutsListState)}
             {shortcutsListState != []

@@ -10,6 +10,7 @@
   position: absolute;
   width: min(40vw);
   flex-wrap: wrap;
+  height: max(37vw);
 }
 
 #closeName {
@@ -20,6 +21,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: scroll;
 }
 
 .shortcutsHeader {
