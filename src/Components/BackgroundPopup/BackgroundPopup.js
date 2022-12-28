@@ -54,6 +54,30 @@ const BackgroundPopup = (props) => {
               props.hidePopup();
             }}
           ></button>
+          <button
+            className={classes.backgroundImage}
+            id={classes.backgroundImage8}
+            onClick={() => {
+              props.changeBg("Yellow mountain");
+              props.hidePopup();
+            }}
+          ></button>
+          <button
+            className={classes.backgroundImage}
+            id={classes.backgroundImage9}
+            onClick={() => {
+              props.changeBg("Snow mountain");
+              props.hidePopup();
+            }}
+          ></button>
+          <button
+            className={classes.backgroundImage}
+            id={classes.backgroundImage10}
+            onClick={() => {
+              props.changeBg("Mountain rocks");
+              props.hidePopup();
+            }}
+          ></button>
         </div>
         <div className={classes.deleteButtonContainer}>
           <button

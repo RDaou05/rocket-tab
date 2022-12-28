@@ -48,6 +48,15 @@ const Background = () => {
     } else if (bgLocalState == "Sunset path") {
       backgroundRef.current.style.backgroundImage =
         "url('https://images.unsplash.com/photo-1496614932623-0a3a9743552e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&q=100&w=1920&h=1080')";
+    } else if (bgLocalState == "Yellow mountain") {
+      backgroundRef.current.style.backgroundImage =
+        "url('https://images.unsplash.com/photo-1581888517319-570283943d82?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&q=100&w=1920&h=1080')";
+    } else if (bgLocalState == "Snow mountain") {
+      backgroundRef.current.style.backgroundImage =
+        "url('https://images.unsplash.com/photo-1563950708942-db5d9dcca7a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&q=100&w=1920&h=1080')";
+    } else if (bgLocalState == "Mountain rocks") {
+      backgroundRef.current.style.backgroundImage =
+        "url('https://images.unsplash.com/photo-1461301214746-1e109215d6d3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&q=100&w=1920&h=1080')";
     }
     if (bgLocalState == null) {
       setClassState(defaultClasses);
