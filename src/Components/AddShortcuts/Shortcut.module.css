@@ -1,0 +1,24 @@
+.shortcutName {
+  cursor: pointer;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 2rem;
+}
+
+.shortcutIcon {
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+}
+
+.shortcutIcon:hover ~ .shortcutName {
+  text-decoration: underline;
+  text-underline-offset: 0.4em;
+  transition: 0.3s;
+}
+
+.shortcutName:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.4em;
+  transition: 0.3s;
+}

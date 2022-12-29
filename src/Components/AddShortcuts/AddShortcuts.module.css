@@ -18,7 +18,6 @@
 .shortcutsContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   height: max(26vw);
 }
@@ -29,6 +28,7 @@
   font-family: Josefin Sans, sans-serif;
   font-weight: 100;
   text-shadow: 0.1rem 0.1rem 1rem #0b0b0b;
+  text-align: center;
 }
 
 #closeShortcuts {
@@ -62,8 +62,25 @@
   overflow: scroll;
   width: 27vw;
   text-align: center;
+  overflow-wrap: anywhere;
 }
 
 .linksContainer::-webkit-scrollbar {
   display: none;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 1em;
+}
+
+.addShortcutInput {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid white;
+  outline: none;
+  font-size: 1.5rem;
+  color: white;
+  text-align: center;
 }
