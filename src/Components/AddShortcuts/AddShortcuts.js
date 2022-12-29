@@ -80,6 +80,7 @@ const AddShortcuts = (props) => {
               autocomplete="off"
               spellcheck="false"
               autocorrect="off"
+              placeholder="Name"
               ref={nameInputRef}
               onKeyDown={(evt) => {
                 // When enter is pressed in either input field, it makes sure that none of the fields are blank, then it will add the shortcut
@@ -102,6 +103,7 @@ const AddShortcuts = (props) => {
               autocomplete="off"
               spellcheck="false"
               autocorrect="off"
+              placeholder="URL"
               onKeyDown={(evt) => {
                 // When enter is pressed in either input field, it makes sure that none of the fields are blank, then it will add the shortcut
                 if (evt.key == "Enter") {
