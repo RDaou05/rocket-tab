@@ -18,13 +18,9 @@ const CurrentShortcut = (props) => {
   // Convert the number to a string and log it
   console.log(randomNumber.toString());
 
-  return (
-    <div>
-      {props.newShortcutsObj.map((shortcut) => (
-        <Shortcut key={generate20DigitNumber()} shortcut={shortcut} />
-      ))}
-    </div>
-  );
+  return props.newShortcutsObj.map((shortcut) => (
+    <Shortcut key={generate20DigitNumber()} shortcut={shortcut} />
+  ));
 };
 
 export default CurrentShortcut;

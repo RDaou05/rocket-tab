@@ -124,7 +124,7 @@ const AddShortcuts = (props) => {
             className={classes.linksContainer}
             ref={linksContainerRef}
             style={{
-              height: shortcutInputState ? "max(20vw)" : "none",
+              height: shortcutInputState ? "max(15vw)" : "max(1000vw)",
             }}
           >
             <CurrentShortcut newShortcutsObj={newShortcutObjState} />
