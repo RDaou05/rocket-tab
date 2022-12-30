@@ -71,7 +71,7 @@ const AddShortcuts = (props) => {
             &#x2715;
           </button>
         </div>
-        {shortcutInputState ? (
+        {shortcutInputState || props.openAddShortcutsPopupWithAddModeOnState ? (
           <div className={classes.inputContainer}>
             <input
               type="text"
@@ -90,6 +90,7 @@ const AddShortcuts = (props) => {
                   if (nameVal.trim() != "" && linkVal.trim() != "") {
                     const shortcutObject = addShortcut(nameVal, linkVal);
                     setShortcutInputState(false);
+                    props.setOpenAddShortcutsPopupWithAddModeOnState(false); // Check the top of Background.js for reasoning
                     console.log("oughf: ", shortcutObject);
                   }
                 }
@@ -112,6 +113,7 @@ const AddShortcuts = (props) => {
                   if (nameVal.trim() != "" && linkVal.trim() != "") {
                     const shortcutObject = addShortcut(nameVal, linkVal);
                     setShortcutInputState(false);
+                    props.setOpenAddShortcutsPopupWithAddModeOnState(false); // Check the top of Background.js for reasoning
                     console.log("oajsfdg: ", shortcutObject);
                   }
                 }
@@ -124,7 +126,11 @@ const AddShortcuts = (props) => {
             className={classes.linksContainer}
             ref={linksContainerRef}
             style={{
-              height: shortcutInputState ? "max(15vw)" : "max(1000vw)",
+              height:
+                shortcutInputState ||
+                props.openAddShortcutsPopupWithAddModeOnState
+                  ? "max(15vw)"
+                  : "max(1000vw)",
             }}
           >
             <CurrentShortcut newShortcutsObj={newShortcutObjState} />

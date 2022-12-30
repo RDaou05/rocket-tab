@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import ShortcutBubble from "./ShortcutBubble";
 import classes from "./ShortcutDisplay.module.css";
-const ShortcutDisplay = () => {
-  const [shortcutsArrayState, setShortcutsArrayState] = useState(
-    JSON.parse(localStorage.getItem("shortcuts"))
-  );
+const ShortcutDisplay = (props) => {
   const generate20DigitNumber = () => {
     // Generate a random number between 0 and 1
     let randomNumber = Math.random();
@@ -15,12 +12,35 @@ const ShortcutDisplay = () => {
   };
   return (
     <div className={classes.bubbleContainer}>
-      {shortcutsArrayState
-        .slice(0)
-        .reverse()
-        .map((shortcut) => (
-          <ShortcutBubble key={generate20DigitNumber()} shortcut={shortcut} />
-        ))}
+      {JSON.parse(localStorage.getItem("shortcuts")) != null ? (
+        <>
+          {JSON.parse(localStorage.getItem("shortcuts")).length > 0 ? (
+            JSON.parse(localStorage.getItem("shortcuts"))
+              .slice(0)
+              .reverse()
+              .map((shortcut) => (
+                <ShortcutBubble
+                  key={generate20DigitNumber()}
+                  shortcut={shortcut}
+                />
+              ))
+          ) : (
+            <div
+              className={classes.addShortcutBubble}
+              onClick={() => {
+                props.openShortcutPopup();
+              }}
+            ></div>
+          )}
+        </>
+      ) : (
+        <div
+          className={classes.addShortcutBubble}
+          onClick={() => {
+            props.openShortcutPopup();
+          }}
+        ></div>
+      )}
     </div>
   );
 };

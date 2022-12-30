@@ -13,6 +13,13 @@ const Background = () => {
   const [backgroundPopupState, setBackgroundPopupState] = useState(false);
   const [addShortcutsPopup, setAddShortcutsPopup] = useState(false);
   const [openShortcutsPop, setOpenShortcutsPop] = useState(false);
+  const [
+    // When this state is true, the add shortcuts popup will automatically ask the user for a new shortcut to add when it is opened
+    // This is used when the add shortcut button is clicked from the center screen
+    // It will open the popup and ask for the new shortcut without waiting for the user to click the plus sign in the popup
+    openAddShortcutsPopupWithAddModeOnState,
+    setOpenAddShortcutsPopupWithAddModeOnState,
+  ] = useState(false);
   const backgroundRef = useRef(null);
   const width = 1920;
   const height = 1080;
@@ -69,8 +76,15 @@ const Background = () => {
   return (
     <div className={classState.background} ref={backgroundRef}>
       <div className={classes.backgroundPopupContainer}>
+        {console.log("addShortcutsPopup: ", addShortcutsPopup)}
         {!backgroundPopupState && !addShortcutsPopup ? (
-          <CenterScreen />
+          <CenterScreen
+            openShortcutPopup={() => {
+              console.log("WAEIT FROM OPEN: ");
+              setAddShortcutsPopup(true);
+              setOpenAddShortcutsPopupWithAddModeOnState(true);
+            }}
+          />
         ) : (
           <>
             {backgroundPopupState ? (
@@ -85,7 +99,14 @@ const Background = () => {
               <AddShortcuts
                 hidePopup={() => {
                   setAddShortcutsPopup(false);
+                  setOpenAddShortcutsPopupWithAddModeOnState(false);
                 }}
+                openAddShortcutsPopupWithAddModeOnState={
+                  openAddShortcutsPopupWithAddModeOnState
+                }
+                setOpenAddShortcutsPopupWithAddModeOnState={
+                  setOpenAddShortcutsPopupWithAddModeOnState
+                }
               />
             ) : null}
           </>

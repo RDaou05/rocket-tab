@@ -4,7 +4,7 @@ import Clock from "./Clock";
 import PromptForName from "../NamePopup/PromptForName";
 import ShortcutDisplay from "../ShortcutDisplay/ShortcutDisplay";
 
-const CenterScreen = () => {
+const CenterScreen = (props) => {
   const [promptForNameState, setPromptForNameState] = useState(false);
   const nameGreet = useRef(null);
   const searchBoxRef = useRef(null);
@@ -63,7 +63,11 @@ const CenterScreen = () => {
               }
             }}
           />
-          <ShortcutDisplay />
+          <ShortcutDisplay
+            openShortcutPopup={() => {
+              props.openShortcutPopup();
+            }}
+          />
         </>
       )}
     </div>
