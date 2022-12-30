@@ -185,9 +185,13 @@ const AddShortcuts = (props) => {
                   if (nameVal.trim() != "" && linkVal.trim() != "") {
                     if (!editModeState[0]) {
                       addShortcut(nameVal, linkVal);
+                      setNameInputState("");
+                      setLinkInputState("");
                     } else if (editModeState[0]) {
                       editShortcut(nameVal, linkVal);
                       setEditModeState([false, {}]);
+                      setNameInputState("");
+                      setLinkInputState("");
                     }
                     setShortcutInputState(false);
                     props.setOpenAddShortcutsPopupWithAddModeOnState(false); // Check the top of Background.js for reasoning
@@ -216,9 +220,13 @@ const AddShortcuts = (props) => {
                   if (nameVal.trim() != "" && linkVal.trim() != "") {
                     if (!editModeState[0]) {
                       addShortcut(nameVal, linkVal);
+                      setNameInputState("");
+                      setLinkInputState("");
                     } else if (editModeState[0]) {
                       editShortcut(nameVal, linkVal);
                       setEditModeState([false, {}]);
+                      setNameInputState("");
+                      setLinkInputState("");
                     }
                     setShortcutInputState(false);
                     props.setOpenAddShortcutsPopupWithAddModeOnState(false); // Check the top of Background.js for reasoning
