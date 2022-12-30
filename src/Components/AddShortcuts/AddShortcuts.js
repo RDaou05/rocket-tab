@@ -262,10 +262,11 @@ const AddShortcuts = (props) => {
               ? shortcutsListState
                   .slice(0)
                   .reverse()
-                  .map((shortcut) => {
+                  .map((shortcut, index) => {
                     return (
                       <Shortcut
                         key={shortcut.id}
+                        index={index}
                         shortcut={shortcut}
                         current={false}
                         setShortcutsListState={setShortcutsListState}

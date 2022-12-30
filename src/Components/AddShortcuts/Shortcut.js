@@ -1,29 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import classes from "./Shortcut.module.css";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { TiPencil } from "react-icons/ti";
 const Shortcut = (props) => {
-  const [shortcutState, setShortcutState] = useState(props.shortcut);
-  const [linkState, setLinkState] = useState(props.shortcut.link);
+  let shortcutObj;
+  let linkFromShortcutObj;
+
   const [imageIsValidState, setImageIsValidState] = useState(false);
   const [iconSourceLink, setIconSourceLink] = useState("");
   const [hoveringOnShortcutState, setHoveringOnShortcutState] = useState(false);
+  const a = () => {
+    if (props.current) {
+      shortcutObj = props.newShortcutObjState[props.index];
+      linkFromShortcutObj = props.newShortcutObjState[props.index].link;
+    } else if (!props.current) {
+      shortcutObj = props.shortcutsListState[props.index];
+      linkFromShortcutObj = props.shortcutsListState[props.index].link;
+    }
+    console.log(shortcutObj);
+  };
+  a();
   useEffect(() => {
     if (
-      linkState.substring(0, 5) == "http:" ||
-      linkState.substring(0, 6) == "https:" ||
-      linkState.substring(0, 7) == "http://" ||
-      linkState.substring(0, 8) == "https://"
+      linkFromShortcutObj.substring(0, 5) == "http:" ||
+      linkFromShortcutObj.substring(0, 6) == "https:" ||
+      linkFromShortcutObj.substring(0, 7) == "http://" ||
+      linkFromShortcutObj.substring(0, 8) == "https://"
     ) {
       setIconSourceLink(
-        `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${linkState.trim()}&size=24`
+        `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${linkFromShortcutObj.trim()}&size=24`
       );
     } else {
       setIconSourceLink(
-        `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://${linkState.trim()}&size=24`
+        `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://${linkFromShortcutObj.trim()}&size=24`
       );
     }
-  }, [linkState]);
+  }, []);
 
   return (
     <div
@@ -45,7 +57,7 @@ const Shortcut = (props) => {
                 // The 'current' prop is true if this shortcut was added during this session
                 props.newShortcutObjState.slice(0).forEach((element, index) => {
                   // NOTE: Doing .slice(0) is just a way to create a copy of an array
-                  if (element.id == shortcutState.id) {
+                  if (element.id == shortcutObj.id) {
                     let arrayCopy = props.newShortcutObjState.slice(0); // Making copy of the array that stores shortcuts added in this session
                     arrayCopy.splice(index, 1); // Deleting the shortcut from the array copy
                     props.setNewShortcutObjState(arrayCopy);
@@ -56,7 +68,7 @@ const Shortcut = (props) => {
                 // The user is trying to delete a shortcut that was added in a different session
                 props.shortcutsListState.slice(0).forEach((element, index) => {
                   // NOTE: Doing .slice(0) is just a way to create a copy of an array
-                  if (element.id == shortcutState.id) {
+                  if (element.id == shortcutObj.id) {
                     let arrayCopy = props.shortcutsListState.slice(0); // Making copy of the array that stores shortcuts added a different session
                     arrayCopy.splice(index, 1); // Deleting the shortcut from the array copy
                     props.setShortcutsListState(arrayCopy);
@@ -71,7 +83,7 @@ const Shortcut = (props) => {
               );
               currentLocalStorageSnap.forEach((element, index) => {
                 // Trying to find the id that matches with the ID that needs to be deleted
-                if (element.id == shortcutState.id) {
+                if (element.id == shortcutObj.id) {
                   // Shortcut to be deleted has been found in localstorage array
                   currentLocalStorageSnap.splice(index, 1); // Removes the shortcut from the array and updates original array
                 }
@@ -91,7 +103,7 @@ const Shortcut = (props) => {
               fontSize: "1.2em",
             }}
             onClick={() => {
-              props.setEditModeState([true, shortcutState, props.current]);
+              props.setEditModeState([true, shortcutObj, props.current]);
             }}
           />
         </div>
@@ -113,7 +125,7 @@ const Shortcut = (props) => {
             />
           ) : null}
         </span>
-        <p className={classes.shortcutName}>{shortcutState.name}</p>
+        <p className={classes.shortcutName}>{shortcutObj.name}</p>
       </p>
     </div>
   );

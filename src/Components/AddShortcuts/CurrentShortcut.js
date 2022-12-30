@@ -8,9 +8,10 @@ const CurrentShortcut = (props) => {
   randomNumber = randomNumber * Math.pow(10, 20);
   // Convert the number to a string and log it
 
-  return props.newShortcutsObj.map((shortcut) => (
+  return props.newShortcutsObj.map((shortcut, index) => (
     <Shortcut
       key={shortcut.id}
+      index={index}
       newShortcutObjState={props.newShortcutObjState}
       setNewShortcutObjState={props.setNewShortcutObjState}
       shortcut={shortcut}
