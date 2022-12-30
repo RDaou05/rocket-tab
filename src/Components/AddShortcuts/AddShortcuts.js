@@ -18,18 +18,32 @@ const AddShortcuts = (props) => {
     }
   }, []);
 
+  const generate20DigitNumber = () => {
+    // Generate a random number between 0 and 1
+    let randomNumber = Math.random();
+    // Multiply the random number by 10^20 to get a 20-digit number
+    randomNumber = randomNumber * Math.pow(10, 20);
+    // Convert the number to a string and log it
+    return randomNumber.toString();
+  };
+
   const addShortcut = (name, link) => {
     const currentLocal = JSON.parse(localStorage.getItem("shortcuts"));
+    const generatedID = generate20DigitNumber();
     if (currentLocal != null && currentLocal != []) {
       // If there is already a main array with a shortcut in it, then it will just make a new copy of it with the array + the new shortcut
       let newLocal = currentLocal;
       console.log("newl: ", newLocal);
-      newLocal.push({ name: name, link: link });
+      newLocal.push({ name: name, link: link, id: generatedID });
       localStorage.setItem("shortcuts", JSON.stringify(newLocal));
 
       // Adding new shortcut to the list of shortcuts that were added in this current session
       let newShortcutListCopy = newShortcutObjState.slice(0);
-      newShortcutListCopy.push({ name: name, link: link });
+      newShortcutListCopy.push({
+        name: name,
+        link: link,
+        id: generatedID,
+      });
       newShortcutListCopy.reverse(); // Reversing because we want the brand new shortcuts to always be at the top
       console.log("Exist Raw reverse: ", newShortcutListCopy);
       setNewShortcutObjState(newShortcutListCopy);
@@ -37,11 +51,11 @@ const AddShortcuts = (props) => {
       // If there is no current shortcuts added, it will make the main array, and add this shortcut to it
       localStorage.setItem(
         "shortcuts",
-        JSON.stringify([{ name: name, link: link }])
+        JSON.stringify([{ name: name, link: link, id: generatedID }])
       );
-      setNewShortcutObjState([{ name: name, link: link }]);
+      setNewShortcutObjState([{ name: name, link: link, id: generatedID }]);
     }
-    return { name: name, link: link };
+    return { name: name, link: link, id: generatedID };
   };
   return (
     <div
@@ -56,7 +70,11 @@ const AddShortcuts = (props) => {
           <button
             id={classes.addShortcutsPlus}
             onClick={() => {
-              setShortcutInputState(true);
+              if (shortcutsListState.length + newShortcutObjState.length < 8) {
+                setShortcutInputState(true);
+              } else {
+                alert("Cant have more than 8 shortcuts");
+              }
             }}
           >
             &#x002B;
@@ -133,7 +151,11 @@ const AddShortcuts = (props) => {
                   : "max(1000vw)",
             }}
           >
-            <CurrentShortcut newShortcutsObj={newShortcutObjState} />
+            <CurrentShortcut
+              newShortcutsObj={newShortcutObjState}
+              newShortcutObjState={newShortcutObjState}
+              setNewShortcutObjState={setNewShortcutObjState}
+            />
             {/* This component will render a shortcut tag whenever a shortcut is added in
             this current session. These are the ones that are rendered after the code has already rendered the ones from local storage*/}
             {console.log(shortcutsListState)}
@@ -141,11 +163,20 @@ const AddShortcuts = (props) => {
               ? shortcutsListState
                   .slice(0)
                   .reverse()
-                  .map((shortcut, index) => {
+                  .map((shortcut) => {
                     {
-                      console.log(shortcut, index);
+                      console.log(shortcut);
                     }
-                    return <Shortcut key={index} shortcut={shortcut} />;
+                    return (
+                      <Shortcut
+                        key={shortcut.id}
+                        shortcut={shortcut}
+                        current={false}
+                        setShortcutsListState={setShortcutsListState}
+                        shortcutsListState={shortcutsListState}
+                      />
+                      // The 'current' prop is if this shortcut was added during this session
+                    );
                   })
               : null}
           </div>

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import classes from "./Shortcut.module.css";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { TiPencil } from "react-icons/ti";
 const Shortcut = (props) => {
   const [shortcutState, setShortcutState] = useState(props.shortcut);
   const [linkState, setLinkState] = useState(props.shortcut.link);
   const [imageIsValidState, setImageIsValidState] = useState(false);
   const [iconSourceLink, setIconSourceLink] = useState("");
+  const [hoveringOnShortcutState, setHoveringOnShortcutState] = useState(false);
   console.log(props.shortcut);
   useEffect(() => {
     const i = async () => {
@@ -39,7 +42,84 @@ const Shortcut = (props) => {
   }, [linkState]);
 
   return (
-    <div>
+    <div
+      className={classes.mainShortcutDiv}
+      onMouseEnter={() => {
+        setHoveringOnShortcutState(true);
+      }}
+      onMouseLeave={() => {
+        setHoveringOnShortcutState(false);
+      }}
+    >
+      {hoveringOnShortcutState ? (
+        <div className={classes.iconContainer}>
+          <FaRegTrashAlt
+            className={classes.changeShortcutIcon}
+            style={{ cursor: "pointer", fontSize: "1em" }}
+            onClick={() => {
+              if (props.current) {
+                console.log("DELETE SAME SESS");
+                // The 'current' prop is true if this shortcut was added during this session
+                props.newShortcutObjState.slice(0).forEach((element, index) => {
+                  // NOTE: Doing .slice(0) is just a way to create a copy of an array
+                  if (element.id == shortcutState.id) {
+                    console.log("FOUND: ", element);
+                    let arrayCopy = props.newShortcutObjState.slice(0); // Making copy of the array that stores shortcuts added in this session
+                    arrayCopy.splice(index, 1); // Deleting the shortcut from the array copy
+                    props.setNewShortcutObjState(arrayCopy);
+                    // Updating (deleting the shortcut) the state the stores all the shortcuts that were added in the current session
+                  }
+                });
+              } else if (!props.current) {
+                console.log("DELETE DIFF SESS");
+                // The user is trying to delete a shortcut that was added in a different session
+                props.shortcutsListState.slice(0).forEach((element, index) => {
+                  // NOTE: Doing .slice(0) is just a way to create a copy of an array
+                  if (element.id == shortcutState.id) {
+                    console.log("FOUND: ", element);
+                    let arrayCopy = props.shortcutsListState.slice(0); // Making copy of the array that stores shortcuts added a different session
+                    arrayCopy.splice(index, 1); // Deleting the shortcut from the array copy
+                    props.setShortcutsListState(arrayCopy);
+                    // Updating (deleting the shortcut) the state the stores all the shortcuts that were added in a different session
+                  }
+                });
+              }
+
+              // Deleting the shortcut from local storage
+              let currentLocalStorageSnap = JSON.parse(
+                localStorage.getItem("shortcuts")
+              );
+              console.log("currentLocalStorageSnap: ", currentLocalStorageSnap);
+              console.log("current shortcutState: ", shortcutState);
+              currentLocalStorageSnap.forEach((element, index) => {
+                // Trying to find the id that matches with the ID that needs to be deleted
+                console.log("shortcutState: ", shortcutState);
+                if (element.id == shortcutState.id) {
+                  console.log("Element found: ", element);
+                  console.log("Element ID found: ", element.id);
+                  console.log("ShorcutState found: ", shortcutState);
+                  console.log("ShorcutState ID found: ", shortcutState.id);
+                  // Shortcut to be deleted has been found in localstorage array
+                  currentLocalStorageSnap.splice(index, 1); // Removes the shortcut from the array and updates original array
+                }
+              });
+              localStorage.setItem(
+                // Updating local storage with new version of array without the deleted shortcut
+                "shortcuts",
+                JSON.stringify(currentLocalStorageSnap)
+              );
+            }}
+          />
+          <TiPencil
+            className={classes.changeShortcutIcon}
+            style={{
+              cursor: "pointer",
+              marginLeft: "0.5em",
+              fontSize: "1.2em",
+            }}
+          />
+        </div>
+      ) : null}
       <p
         style={{
           display: "flex",
@@ -54,19 +134,19 @@ const Shortcut = (props) => {
               src={iconSourceLink}
               style={{ marginRight: "0.5em" }}
               className={classes.shortcutIcon}
-              onClick={() => {
-                if (
-                  linkState.substring(0, 5) == "http:" ||
-                  linkState.substring(0, 6) == "https:" ||
-                  linkState.substring(0, 7) == "http://" ||
-                  linkState.substring(0, 8) == "https://"
-                ) {
-                  window.location = linkState;
-                } else {
-                  window.location = "http://" + linkState;
-                  // Incase the user is trying to access a website that is not http, but https instead, the browser just automatically changes it
-                }
-              }}
+              // onClick={() => {
+              //   if (
+              //     linkState.substring(0, 5) == "http:" ||
+              //     linkState.substring(0, 6) == "https:" ||
+              //     linkState.substring(0, 7) == "http://" ||
+              //     linkState.substring(0, 8) == "https://"
+              //   ) {
+              //     window.location = linkState;
+              //   } else {
+              //     window.location = "http://" + linkState;
+              //     // Incase the user is trying to access a website that is not http, but https instead, the browser just automatically changes it
+              //   }
+              // }}
             />
           ) : null}
         </span>

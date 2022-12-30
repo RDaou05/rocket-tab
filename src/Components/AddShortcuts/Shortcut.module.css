@@ -6,7 +6,6 @@
 }
 
 .shortcutIcon {
-  cursor: pointer;
   width: 2rem;
   height: 2rem;
 }
@@ -20,5 +19,25 @@
 .shortcutName:hover {
   text-decoration: underline;
   text-underline-offset: 0.4em;
+  transition: 0.3s;
+}
+
+.iconContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  left: 8vw;
+  position: absolute;
+}
+
+.mainShortcutDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.changeShortcutIcon:hover {
+  color: #696767;
   transition: 0.3s;
 }
