@@ -8,23 +8,7 @@ const Shortcut = (props) => {
   const [imageIsValidState, setImageIsValidState] = useState(false);
   const [iconSourceLink, setIconSourceLink] = useState("");
   const [hoveringOnShortcutState, setHoveringOnShortcutState] = useState(false);
-  console.log(props.shortcut);
   useEffect(() => {
-    const i = async () => {
-      // let headers = {};
-      // headers["Access-Control-Allow-Origin"] = "*";
-      const response = await fetch(
-        `https://www.google.com/s2/favicons?domain=${linkState}`
-      );
-      console.log("Res: ", response);
-      if (!response.ok) {
-        setImageIsValidState(false);
-      } else {
-        setImageIsValidState(true);
-      }
-      // setImageIsValidState(true);
-    };
-    i();
     if (
       linkState.substring(0, 5) == "http:" ||
       linkState.substring(0, 6) == "https:" ||
@@ -58,12 +42,10 @@ const Shortcut = (props) => {
             style={{ cursor: "pointer", fontSize: "1em" }}
             onClick={() => {
               if (props.current) {
-                console.log("DELETE SAME SESS");
                 // The 'current' prop is true if this shortcut was added during this session
                 props.newShortcutObjState.slice(0).forEach((element, index) => {
                   // NOTE: Doing .slice(0) is just a way to create a copy of an array
                   if (element.id == shortcutState.id) {
-                    console.log("FOUND: ", element);
                     let arrayCopy = props.newShortcutObjState.slice(0); // Making copy of the array that stores shortcuts added in this session
                     arrayCopy.splice(index, 1); // Deleting the shortcut from the array copy
                     props.setNewShortcutObjState(arrayCopy);
@@ -71,12 +53,10 @@ const Shortcut = (props) => {
                   }
                 });
               } else if (!props.current) {
-                console.log("DELETE DIFF SESS");
                 // The user is trying to delete a shortcut that was added in a different session
                 props.shortcutsListState.slice(0).forEach((element, index) => {
                   // NOTE: Doing .slice(0) is just a way to create a copy of an array
                   if (element.id == shortcutState.id) {
-                    console.log("FOUND: ", element);
                     let arrayCopy = props.shortcutsListState.slice(0); // Making copy of the array that stores shortcuts added a different session
                     arrayCopy.splice(index, 1); // Deleting the shortcut from the array copy
                     props.setShortcutsListState(arrayCopy);
@@ -89,16 +69,9 @@ const Shortcut = (props) => {
               let currentLocalStorageSnap = JSON.parse(
                 localStorage.getItem("shortcuts")
               );
-              console.log("currentLocalStorageSnap: ", currentLocalStorageSnap);
-              console.log("current shortcutState: ", shortcutState);
               currentLocalStorageSnap.forEach((element, index) => {
                 // Trying to find the id that matches with the ID that needs to be deleted
-                console.log("shortcutState: ", shortcutState);
                 if (element.id == shortcutState.id) {
-                  console.log("Element found: ", element);
-                  console.log("Element ID found: ", element.id);
-                  console.log("ShorcutState found: ", shortcutState);
-                  console.log("ShorcutState ID found: ", shortcutState.id);
                   // Shortcut to be deleted has been found in localstorage array
                   currentLocalStorageSnap.splice(index, 1); // Removes the shortcut from the array and updates original array
                 }
@@ -134,19 +107,6 @@ const Shortcut = (props) => {
               src={iconSourceLink}
               style={{ marginRight: "0.5em" }}
               className={classes.shortcutIcon}
-              // onClick={() => {
-              //   if (
-              //     linkState.substring(0, 5) == "http:" ||
-              //     linkState.substring(0, 6) == "https:" ||
-              //     linkState.substring(0, 7) == "http://" ||
-              //     linkState.substring(0, 8) == "https://"
-              //   ) {
-              //     window.location = linkState;
-              //   } else {
-              //     window.location = "http://" + linkState;
-              //     // Incase the user is trying to access a website that is not http, but https instead, the browser just automatically changes it
-              //   }
-              // }}
             />
           ) : null}
         </span>

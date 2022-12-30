@@ -10,43 +10,41 @@ const ShortcutBubble = (props) => {
   const favicon = useRef(null);
   const listOfColors = ["red", "green", "blue"];
   useLayoutEffect(() => {
-    const i = async () => {
-      const response = await fetch(
-        `https://www.google.com/s2/favicons?domain=${linkState}`
-      );
-      console.log("Res: ", response);
-      if (!response.ok) {
-        setImageIsValidState(false);
-      } else {
-        setImageIsValidState(true);
-      }
-    };
-    // i();
-    // setImageIsValidState(true);
+    let sourceLink;
     if (
       linkState.substring(0, 5) == "http:" ||
       linkState.substring(0, 6) == "https:" ||
       linkState.substring(0, 7) == "http://" ||
       linkState.substring(0, 8) == "https://"
     ) {
-      setIconSourceLink(
-        `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${linkState.trim()}&size=48`
-      );
+      sourceLink = `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${linkState.trim()}&size=48`;
+      setIconSourceLink(sourceLink);
     } else {
-      setIconSourceLink(
-        `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://${linkState.trim()}&size=48`
-      );
+      sourceLink = `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://${linkState.trim()}&size=48`;
+      setIconSourceLink(sourceLink);
     }
+
+    // Sometimes, the favicon grabber link can return an image thats smaller than 48px (even though we specify 48 in the link)
+    // So if this happens, we just show a box with the first letter of the name, instead of showing the image (favicon)
+    // The way we check if the size is being rendered as a smaller size, is by creating a dummy image with that same source url...
+    // and checking if the width is what it's supposed to be
+    // Then we obviously delete the dummy element after were done
+    let testElement = document.createElement("img");
+    testElement.style.display = "none";
+    testElement.id = `testImage${shortcutState.id}`;
+    testElement.src = sourceLink;
+    document.body.appendChild(testElement);
+
+    setTimeout(() => {
+      if (document.getElementById(`testImage${shortcutState.id}`).width != 48) {
+        setImageIsValidState(false);
+      } else {
+        setImageIsValidState(true);
+      }
+      document.getElementById(`testImage${shortcutState.id}`).remove(); // Delete dummy element
+    }, 500);
   }, [linkState]);
-  useEffect(() => {
-    console.log("CURRENT: ", favicon.current);
-    console.log("CURR W: ", favicon.current.width);
-    if (favicon.current.width != 48) {
-      setImageIsValidState(false);
-    } else {
-      setImageIsValidState(true);
-    }
-  }, [iconSourceLink]);
+
   return (
     <div
       className={classes.shortcutBubble}

@@ -36,7 +36,6 @@ const Background = () => {
   };
   useEffect(() => {
     setBgLocalState(localStorage.getItem("bg"));
-    console.log("Done: ", bgLocalState);
     if (bgLocalState == "Tropical beach") {
       backgroundRef.current.style.backgroundImage =
         "url('https://images.unsplash.com/photo-1548041347-390744c58da6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&q=100&w=1920&h=1080)";
@@ -76,11 +75,9 @@ const Background = () => {
   return (
     <div className={classState.background} ref={backgroundRef}>
       <div className={classes.backgroundPopupContainer}>
-        {console.log("addShortcutsPopup: ", addShortcutsPopup)}
         {!backgroundPopupState && !addShortcutsPopup ? (
           <CenterScreen
             openShortcutPopup={() => {
-              console.log("WAEIT FROM OPEN: ");
               setAddShortcutsPopup(true);
               setOpenAddShortcutsPopupWithAddModeOnState(true);
             }}

@@ -12,7 +12,6 @@ const AddShortcuts = (props) => {
   const linkInputRef = useRef(null);
   useLayoutEffect(() => {
     const localGet = JSON.parse(localStorage.getItem("shortcuts"));
-    console.log("lcget: ", localGet);
     if (localGet != null && localGet != []) {
       setShortcutsListState(localGet);
     }
@@ -33,7 +32,6 @@ const AddShortcuts = (props) => {
     if (currentLocal != null && currentLocal != []) {
       // If there is already a main array with a shortcut in it, then it will just make a new copy of it with the array + the new shortcut
       let newLocal = currentLocal;
-      console.log("newl: ", newLocal);
       newLocal.push({ name: name, link: link, id: generatedID });
       localStorage.setItem("shortcuts", JSON.stringify(newLocal));
 
@@ -45,7 +43,6 @@ const AddShortcuts = (props) => {
         id: generatedID,
       });
       newShortcutListCopy.reverse(); // Reversing because we want the brand new shortcuts to always be at the top
-      console.log("Exist Raw reverse: ", newShortcutListCopy);
       setNewShortcutObjState(newShortcutListCopy);
     } else {
       // If there is no current shortcuts added, it will make the main array, and add this shortcut to it
@@ -109,7 +106,6 @@ const AddShortcuts = (props) => {
                     const shortcutObject = addShortcut(nameVal, linkVal);
                     setShortcutInputState(false);
                     props.setOpenAddShortcutsPopupWithAddModeOnState(false); // Check the top of Background.js for reasoning
-                    console.log("oughf: ", shortcutObject);
                   }
                 }
               }}
@@ -132,7 +128,6 @@ const AddShortcuts = (props) => {
                     const shortcutObject = addShortcut(nameVal, linkVal);
                     setShortcutInputState(false);
                     props.setOpenAddShortcutsPopupWithAddModeOnState(false); // Check the top of Background.js for reasoning
-                    console.log("oajsfdg: ", shortcutObject);
                   }
                 }
               }}
@@ -158,15 +153,12 @@ const AddShortcuts = (props) => {
             />
             {/* This component will render a shortcut tag whenever a shortcut is added in
             this current session. These are the ones that are rendered after the code has already rendered the ones from local storage*/}
-            {console.log(shortcutsListState)}
+
             {shortcutsListState != []
               ? shortcutsListState
                   .slice(0)
                   .reverse()
                   .map((shortcut) => {
-                    {
-                      console.log(shortcut);
-                    }
                     return (
                       <Shortcut
                         key={shortcut.id}
