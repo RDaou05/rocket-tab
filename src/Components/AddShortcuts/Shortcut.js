@@ -137,7 +137,11 @@ const Shortcut = (props) => {
             />
           ) : null}
         </span>
-        <p className={classes.shortcutName}>{shortcutObj.name}</p>
+        <p className={classes.shortcutName}>
+          {shortcutObj.name.length > 10
+            ? shortcutObj.name.substring(0, 10) + ".."
+            : shortcutObj.name}
+        </p>
       </p>
     </div>
   );
