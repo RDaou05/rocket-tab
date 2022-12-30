@@ -48,7 +48,22 @@ const ShortcutBubble = (props) => {
     }
   }, [iconSourceLink]);
   return (
-    <div className={classes.shortcutBubble}>
+    <div
+      className={classes.shortcutBubble}
+      onClick={() => {
+        if (
+          linkState.substring(0, 5) == "http:" ||
+          linkState.substring(0, 6) == "https:" ||
+          linkState.substring(0, 7) == "http://" ||
+          linkState.substring(0, 8) == "https://"
+        ) {
+          window.location = linkState;
+        } else {
+          window.location = "http://" + linkState;
+          // Incase the user is trying to access a website that is not http, but https instead, the browser just automatically changes it
+        }
+      }}
+    >
       {imageIsValidState ? (
         <div>
           <img ref={favicon} src={iconSourceLink} />
