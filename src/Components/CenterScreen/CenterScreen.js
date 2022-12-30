@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
 import classes from "./CenterScreen.module.css";
 import Clock from "./Clock";
 import PromptForName from "../NamePopup/PromptForName";
+import ShortcutDisplay from "../ShortcutDisplay/ShortcutDisplay";
 
 const CenterScreen = () => {
   const [promptForNameState, setPromptForNameState] = useState(false);
@@ -62,6 +63,7 @@ const CenterScreen = () => {
               }
             }}
           />
+          <ShortcutDisplay />
         </>
       )}
     </div>

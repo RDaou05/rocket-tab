@@ -1,0 +1,9 @@
+.bubbleContainer {
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  align-items: center;
+  margin-top: 2em;
+}
