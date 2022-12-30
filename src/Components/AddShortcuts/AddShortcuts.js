@@ -15,6 +15,8 @@ const AddShortcuts = (props) => {
   const linksContainerRef = useRef(null);
   const nameInputRef = useRef(null);
   const linkInputRef = useRef(null);
+  const [nameInputState, setNameInputState] = useState(null);
+  const [linkInputState, setLinkInputState] = useState(null);
   useLayoutEffect(() => {
     const localGet = JSON.parse(localStorage.getItem("shortcuts"));
     if (localGet != null && localGet != []) {
@@ -119,11 +121,11 @@ const AddShortcuts = (props) => {
     // When edit mode is turned on, we want to automatically set the value of the input fields to whatever the current stored values are
     // We also want to delete them when edit mode it turned off
     if (editModeState[0]) {
-      nameInputRef.current.value = editModeState[1].name;
-      linkInputRef.current.value = editModeState[1].link;
+      setNameInputState(editModeState[1].name);
+      setLinkInputState(editModeState[1].link);
     } else if (editModeState[1]) {
-      nameInputRef.current.value = "";
-      linkInputRef.current.value = "";
+      setNameInputState("");
+      setLinkInputState("");
     }
   }, [editModeState]);
   return (
@@ -171,15 +173,19 @@ const AddShortcuts = (props) => {
               autocorrect="off"
               placeholder="Name"
               ref={nameInputRef}
+              value={nameInputState}
+              onChange={(evt) => {
+                setNameInputState(evt.target.value);
+              }}
               onKeyDown={(evt) => {
                 // When enter is pressed in either input field, it makes sure that none of the fields are blank, then it will add the shortcut
                 if (evt.key == "Enter") {
-                  const nameVal = nameInputRef.current.value;
-                  const linkVal = linkInputRef.current.value;
+                  const nameVal = nameInputState;
+                  const linkVal = linkInputState;
                   if (nameVal.trim() != "" && linkVal.trim() != "") {
-                    if (!editModeState) {
+                    if (!editModeState[0]) {
                       addShortcut(nameVal, linkVal);
-                    } else if (editModeState) {
+                    } else if (editModeState[0]) {
                       editShortcut(nameVal, linkVal);
                       setEditModeState([false, {}]);
                     }
@@ -192,6 +198,10 @@ const AddShortcuts = (props) => {
             <input
               type="text"
               className={classes.addShortcutInput}
+              value={linkInputState}
+              onChange={(evt) => {
+                setLinkInputState(evt.target.value);
+              }}
               ref={linkInputRef}
               id={classes.addLink}
               autocomplete="off"
@@ -201,12 +211,12 @@ const AddShortcuts = (props) => {
               onKeyDown={(evt) => {
                 // When enter is pressed in either input field, it makes sure that none of the fields are blank, then it will add the shortcut
                 if (evt.key == "Enter") {
-                  const nameVal = nameInputRef.current.value;
-                  const linkVal = linkInputRef.current.value;
+                  const nameVal = nameInputState;
+                  const linkVal = linkInputState;
                   if (nameVal.trim() != "" && linkVal.trim() != "") {
-                    if (!editModeState) {
+                    if (!editModeState[0]) {
                       addShortcut(nameVal, linkVal);
-                    } else if (editModeState) {
+                    } else if (editModeState[0]) {
                       editShortcut(nameVal, linkVal);
                       setEditModeState([false, {}]);
                     }
