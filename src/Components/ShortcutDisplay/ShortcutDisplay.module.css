@@ -23,9 +23,26 @@
   width: 4em;
   height: 5em;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .addShortcutBubble:hover {
   background-color: #646262;
   transition: 0.3s;
+}
+
+.plusContainer {
+  display: flex;
+  background: #575252;
+  border-radius: 4vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#plus {
+  color: white;
+  font-size: 2em;
 }

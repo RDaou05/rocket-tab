@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ShortcutBubble from "./ShortcutBubble";
 import classes from "./ShortcutDisplay.module.css";
+import { AiOutlinePlus } from "react-icons/ai";
 const ShortcutDisplay = (props) => {
   const generate20DigitNumber = () => {
     // Generate a random number between 0 and 1
@@ -9,6 +10,20 @@ const ShortcutDisplay = (props) => {
     randomNumber = randomNumber * Math.pow(10, 20);
     // Convert the number to a string and log it
     return randomNumber.toString();
+  };
+  const AddShortcutBubble = () => {
+    return (
+      <div
+        className={classes.addShortcutBubble}
+        onClick={() => {
+          props.openShortcutPopup();
+        }}
+      >
+        <div className={classes.plusContainer}>
+          <AiOutlinePlus id={classes.plus} />
+        </div>
+      </div>
+    );
   };
   return (
     <div className={classes.bubbleContainer}>
@@ -25,21 +40,11 @@ const ShortcutDisplay = (props) => {
                 />
               ))
           ) : (
-            <div
-              className={classes.addShortcutBubble}
-              onClick={() => {
-                props.openShortcutPopup();
-              }}
-            ></div>
+            <AddShortcutBubble />
           )}
         </>
       ) : (
-        <div
-          className={classes.addShortcutBubble}
-          onClick={() => {
-            props.openShortcutPopup();
-          }}
-        ></div>
+        <AddShortcutBubble />
       )}
     </div>
   );
