@@ -11,13 +11,25 @@ const Shortcut = (props) => {
   const [hoveringOnShortcutState, setHoveringOnShortcutState] = useState(false);
   const a = () => {
     if (props.current) {
-      shortcutObj = props.newShortcutObjState[props.index];
-      linkFromShortcutObj = props.newShortcutObjState[props.index].link;
+      // We are iterating through the list of shortcuts to see the position of where this shortcut is in the list
+      // The reason we are finding the shortcut from the list, rather than using the object of the shortcut given to us from the 'shortcuts' props...
+      // Is because the 'shortcuts' prop is not a state. It's the value given to us from when we map out this component
+      // The reason we need it to be a state is so this component will update when the shortcut is changed
+      // So when the user updates the link or the name, this whole Shortcut.js component will re render
+      props.newShortcutObjState.forEach((shortcut, indexNum) => {
+        if (props.shortcut.id == shortcut.id) {
+          shortcutObj = props.newShortcutObjState[indexNum];
+          linkFromShortcutObj = props.newShortcutObjState[indexNum].link;
+        }
+      });
     } else if (!props.current) {
-      shortcutObj = props.shortcutsListState[props.index];
-      linkFromShortcutObj = props.shortcutsListState[props.index].link;
+      props.shortcutsListState.forEach((shortcut, indexNum) => {
+        if (props.shortcut.id == shortcut.id) {
+          shortcutObj = props.shortcutsListState[indexNum];
+          linkFromShortcutObj = props.shortcutsListState[indexNum].link;
+        }
+      });
     }
-    console.log(shortcutObj);
   };
   a();
   useEffect(() => {
@@ -35,7 +47,7 @@ const Shortcut = (props) => {
         `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://${linkFromShortcutObj.trim()}&size=24`
       );
     }
-  }, []);
+  }, [props.shortcutsListState, props.newShortcutObjState]);
 
   return (
     <div

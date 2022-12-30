@@ -257,7 +257,6 @@ const AddShortcuts = (props) => {
             />
             {/* This component will render a shortcut tag whenever a shortcut is added in
             this current session. These are the ones that are rendered after the code has already rendered the ones from local storage*/}
-
             {shortcutsListState != []
               ? shortcutsListState
                   .slice(0)
