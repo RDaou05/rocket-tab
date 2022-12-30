@@ -123,7 +123,7 @@ const AddShortcuts = (props) => {
     if (editModeState[0]) {
       setNameInputState(editModeState[1].name);
       setLinkInputState(editModeState[1].link);
-    } else if (editModeState[1]) {
+    } else if (editModeState[0]) {
       setNameInputState("");
       setLinkInputState("");
     }
@@ -236,7 +236,7 @@ const AddShortcuts = (props) => {
               height:
                 shortcutInputState ||
                 props.openAddShortcutsPopupWithAddModeOnState ||
-                editModeState
+                editModeState[0]
                   ? "max(15vw)"
                   : "max(1000vw)",
             }}
