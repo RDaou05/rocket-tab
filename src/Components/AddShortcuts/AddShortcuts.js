@@ -116,7 +116,6 @@ const AddShortcuts = (props) => {
   };
 
   useEffect(() => {
-    console.log("GRRRRRRRRRRRRRRRRRRRR");
     // When edit mode is turned on, we want to automatically set the value of the input fields to whatever the current stored values are
     // We also want to delete them when edit mode it turned off
     if (editModeState[0]) {
