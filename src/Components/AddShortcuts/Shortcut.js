@@ -90,6 +90,9 @@ const Shortcut = (props) => {
               marginLeft: "0.5em",
               fontSize: "1.2em",
             }}
+            onClick={() => {
+              props.setEditModeState([true, shortcutState, props.current]);
+            }}
           />
         </div>
       ) : null}

@@ -15,6 +15,7 @@ const CurrentShortcut = (props) => {
       setNewShortcutObjState={props.setNewShortcutObjState}
       shortcut={shortcut}
       current={true}
+      setEditModeState={props.setEditModeState}
     />
     // The 'current' prop is if this shortcut was added during this session
   ));
